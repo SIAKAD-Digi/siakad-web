@@ -1,0 +1,1 @@
+export const TABLE_SKELETON_ROW_LENGTH = 6;
