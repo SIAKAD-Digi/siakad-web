@@ -9,7 +9,7 @@ export const pathConfig = {
     root: '/master-data',
     student: '/master-data/students',
     teacher: '/master-data/teachers',
-    class: '/master-data/classes',
+    class: '/master-data/classroom',
     materials: 'master-data/materials',
   },
   absence: '/absence',

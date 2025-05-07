@@ -84,15 +84,15 @@ export default function TeacherListView() {
           isLoading={isLoading}
           isEmpty={data.length === 0}
           data={data}
-          render={(student) => {
+          render={(teacher) => {
             return (
-              <TableRow key={student.id}>
-                <TableCell>{student.name}</TableCell>
-                <TableCell>{student.nik}</TableCell>
-                <TableCell>{student.gender}</TableCell>
-                <TableCell>{student.noHp}</TableCell>
-                <TableCell>{student.dateOfBirth}</TableCell>
-                <TableCell>{student.status}</TableCell>
+              <TableRow key={teacher.id}>
+                <TableCell>{teacher.name}</TableCell>
+                <TableCell>{teacher.nik}</TableCell>
+                <TableCell>{teacher.gender}</TableCell>
+                <TableCell>{teacher.noHp}</TableCell>
+                <TableCell>{teacher.dateOfBirth}</TableCell>
+                <TableCell>{teacher.status}</TableCell>
                 <TableCell>
                   <ActionTableButton />
                 </TableCell>
