@@ -9,6 +9,7 @@ import AuthMiddleware from '../middleware/AuthMiddleware';
 import RoleMiddleware from '../middleware/RoleMiddleware';
 import GuestMiddleware from '../middleware/GuestMiddleware';
 import ForbidenPage from '../components/pages/ForbidenPage';
+import TeacherPage from '../modules/master-data/teacher/pages';
 
 const DashboardPage = lazyWithSuspense(() => import('../modules/dashboard/pages'));
 const ComingSoonPage = lazyWithSuspense(() => import('../components/pages/ComingSoonPage'));
@@ -20,6 +21,7 @@ const Router = () => (
     <Route element={<AuthMiddleware element={<DashboardLayout />} />}>
       <Route path={pathConfig.dashboard} element={<DashboardPage />} />
       <Route path={pathConfig.masterData.student} element={<StudentPage />} />
+      <Route path={pathConfig.masterData.teacher} element={<TeacherPage />} />
       <Route path={pathConfig.absence} element={<ComingSoonPage />} />
       <Route
         path={pathConfig.valueEntry}
