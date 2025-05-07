@@ -11,6 +11,7 @@ import GuestMiddleware from '../middleware/GuestMiddleware';
 import ForbidenPage from '../components/pages/ForbidenPage';
 import TeacherPage from '../modules/master-data/teacher/pages';
 import ClassroomPage from '../modules/master-data/class/pages';
+import CoursePage from '../modules/master-data/course/pages';
 
 const DashboardPage = lazyWithSuspense(() => import('../modules/dashboard/pages'));
 const ComingSoonPage = lazyWithSuspense(() => import('../components/pages/ComingSoonPage'));
@@ -24,6 +25,7 @@ const Router = () => (
       <Route path={pathConfig.masterData.student} element={<StudentPage />} />
       <Route path={pathConfig.masterData.teacher} element={<TeacherPage />} />
       <Route path={pathConfig.masterData.class} element={<ClassroomPage />} />
+      <Route path={pathConfig.masterData.course} element={<CoursePage />} />
       <Route path={pathConfig.absence} element={<ComingSoonPage />} />
       <Route
         path={pathConfig.valueEntry}

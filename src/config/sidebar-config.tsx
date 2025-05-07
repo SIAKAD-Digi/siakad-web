@@ -44,7 +44,7 @@ const sidebarMenu: SideBarMenuType[] = [
       },
       {
         label: 'Pelajaran',
-        path: pathConfig.masterData.materials,
+        path: pathConfig.masterData.course,
       },
     ],
   },
