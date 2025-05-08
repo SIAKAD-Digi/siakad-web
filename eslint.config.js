@@ -47,6 +47,18 @@ export default tseslint.config(
           groupKind: 'values-first',
         },
       ],
+      'perfectionist/sort-imports': [
+        2,
+        {
+        order: 'asc',
+        ignoreCase: true,
+        type: 'line-length',
+        environment: 'node',
+        maxLineLength: undefined,
+        newlinesBetween: 'always',
+        internalPattern: ['^src/.+'],
+        }
+      ]
     },
   },
 );
