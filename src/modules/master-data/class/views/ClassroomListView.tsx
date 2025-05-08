@@ -6,27 +6,37 @@ import DashboardContent from '../../../../components/layout/main/DashboardConten
 import CustomTable from '../../../../components/table/CustomTable';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
 import ClassroomTableFilter from '../components/ClassroomTableFilter';
+import ModalDelete from '../../../../components/modal/ModalDelete';
 
+const data: ClassroomEntity[] = [
+  {
+    id: '1',
+    name: 'Kelas X IPA',
+    createdAt: '01 Mei 2025',
+  },
+  {
+    id: '2',
+    name: 'Kelas X IPS',
+    createdAt: '01 Mei 2025',
+  },
+  {
+    id: '3',
+    name: 'Kelas XI IPA',
+    createdAt: '01 Mei 2025',
+  },
+];
 export default function ClassroomListView() {
   const [isLoading, setLoading] = useState(true);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [classroom, setStudent] = useState<ClassroomEntity>();
+  const [listClassroom, setListClassroom] = useState<ClassroomEntity[]>(data);
+  const deleteClassroomById = (id?: string) => {
+    setListClassroom((prevData) => prevData.filter((value) => value.id !== id));
+  };
   const headers = [{ label: 'Nama Kelas' }, { label: 'Tanggal dibuat' }, { label: 'Aksi' }];
-  const data: ClassroomEntity[] = [
-    {
-      id: '1',
-      name: 'Kelas X IPA',
-      createdAt: '01 Mei 2025',
-    },
-    {
-      id: '2',
-      name: 'Kelas X IPS',
-      createdAt: '01 Mei 2025',
-    },
-    {
-      id: '3',
-      name: 'Kelas XI IPA',
-      createdAt: '01 Mei 2025',
-    },
-  ];
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
   }, [isLoading]);
@@ -37,21 +47,35 @@ export default function ClassroomListView() {
         action={<Button>Tambah</Button>}
       />
       <DashboardContent>
+        <ModalDelete
+          id={classroom?.id}
+          name={classroom?.name}
+          open={open}
+          onClose={handleClose}
+          onDelete={() => deleteClassroomById(classroom?.id)}
+        />
         <ClassroomTableFilter />
         <CustomTable
           headers={headers}
           count={100}
           page={1}
           isLoading={isLoading}
-          isEmpty={data.length === 0}
-          data={data}
-          render={(classes) => {
+          isEmpty={listClassroom.length === 0}
+          data={listClassroom}
+          render={(classroom) => {
             return (
-              <TableRow key={classes.id}>
-                <TableCell>{classes.name}</TableCell>
-                <TableCell>{classes.createdAt}</TableCell>
+              <TableRow key={classroom.id}>
+                <TableCell>{classroom.name}</TableCell>
+                <TableCell>{classroom.createdAt}</TableCell>
                 <TableCell>
-                  <ActionTableButton />
+                  <ActionTableButton
+                    onClickDetail={() => {}}
+                    onClickEdit={() => {}}
+                    onClickDelete={() => {
+                      setStudent(classroom);
+                      handleOpen();
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             );
