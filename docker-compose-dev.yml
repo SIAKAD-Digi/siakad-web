@@ -1,0 +1,10 @@
+services:
+  react-app:
+    image: siakad-digi-dev
+    container: siakad-digi-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    restart: always
