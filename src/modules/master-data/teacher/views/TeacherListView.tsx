@@ -1,14 +1,73 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TeacherEntity } from '../types/teacher.types';
 import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
-import { Button, TableCell, TableRow } from '@mui/material';
+import { Button, TableRow, TableCell } from '@mui/material';
 import DashboardContent from '../../../../components/layout/main/DashboardContent';
 import CustomTable from '../../../../components/table/CustomTable';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
 import TeacherTableFilter from '../components/TeacherTableFilter';
+import ModalDelete from '../../../../components/modal/ModalDelete';
+
+const data: TeacherEntity[] = [
+  {
+    id: '1',
+    name: 'Anange',
+    nik: '111222333',
+    gender: 'Laki - Laki',
+    noHp: '085867123123',
+    dateOfBirth: '20 Mei 2003',
+    status: 'Aktif',
+  },
+  {
+    id: '2',
+    name: 'Munawire',
+    nik: '111222333',
+    gender: 'Laki - Laki',
+    noHp: '085867123123',
+    dateOfBirth: '20 Mei 2003',
+    status: 'Aktif',
+  },
+  {
+    id: '3',
+    name: 'Munawire',
+    nik: '111222333',
+    gender: 'Laki - Laki',
+    noHp: '085867123123',
+    dateOfBirth: '20 Mei 2003',
+    status: 'Aktif',
+  },
+  {
+    id: '4',
+    name: 'Munawire',
+    nik: '111222333',
+    gender: 'Laki - Laki',
+    noHp: '085867123123',
+    dateOfBirth: '20 Mei 2003',
+    status: 'Aktif',
+  },
+  {
+    id: '5',
+    name: 'Munawire',
+    nik: '111222333',
+    gender: 'Laki - Laki',
+    noHp: '085867123123',
+    dateOfBirth: '20 Mei 2003',
+    status: 'Aktif',
+  },
+];
 
 export default function TeacherListView() {
   const [isLoading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [name, setName] = useState<TeacherEntity>();
+  const [teachers, setTeachers] = useState<TeacherEntity[]>(data);
+
+  const deleteTeacherById = (id?: string) => {
+    setTeachers((prevTeachers) => prevTeachers.filter((teacher) => teacher.id !== id));
+  };
+
   const headers = [
     { label: 'Nama' },
     { label: 'NIK' },
@@ -22,53 +81,6 @@ export default function TeacherListView() {
     setTimeout(() => setLoading(false), 2000);
   }, [isLoading]);
 
-  const data: TeacherEntity[] = [
-    {
-      id: '1',
-      name: 'Anange',
-      nik: '111222333',
-      gender: 'Laki - Laki',
-      noHp: '085867123123',
-      dateOfBirth: '20 Mei 2003',
-      status: 'Aktif',
-    },
-    {
-      id: '1',
-      name: 'Munawire',
-      nik: '111222333',
-      gender: 'Laki - Laki',
-      noHp: '085867123123',
-      dateOfBirth: '20 Mei 2003',
-      status: 'Aktif',
-    },
-    {
-      id: '1',
-      name: 'Munawire',
-      nik: '111222333',
-      gender: 'Laki - Laki',
-      noHp: '085867123123',
-      dateOfBirth: '20 Mei 2003',
-      status: 'Aktif',
-    },
-    {
-      id: '1',
-      name: 'Munawire',
-      nik: '111222333',
-      gender: 'Laki - Laki',
-      noHp: '085867123123',
-      dateOfBirth: '20 Mei 2003',
-      status: 'Aktif',
-    },
-    {
-      id: '1',
-      name: 'Munawire',
-      nik: '111222333',
-      gender: 'Laki - Laki',
-      noHp: '085867123123',
-      dateOfBirth: '20 Mei 2003',
-      status: 'Aktif',
-    },
-  ];
   return (
     <>
       <CustomBreadcrumbs
@@ -76,14 +88,21 @@ export default function TeacherListView() {
         action={<Button>Tambah</Button>}
       />
       <DashboardContent>
+        <ModalDelete
+          id={name?.id}
+          open={open}
+          onClose={handleClose}
+          onDelete={() => deleteTeacherById(name?.id)}
+          name={name?.name}
+        />
         <TeacherTableFilter />
         <CustomTable
           headers={headers}
           count={100}
           page={1}
           isLoading={isLoading}
-          isEmpty={data.length === 0}
-          data={data}
+          isEmpty={teachers.length === 0}
+          data={teachers}
           render={(teacher) => {
             return (
               <TableRow key={teacher.id}>
@@ -94,7 +113,14 @@ export default function TeacherListView() {
                 <TableCell>{teacher.dateOfBirth}</TableCell>
                 <TableCell>{teacher.status}</TableCell>
                 <TableCell>
-                  <ActionTableButton />
+                  <ActionTableButton
+                    onClickDetail={() => {}}
+                    onClickEdit={() => {}}
+                    onClickDelete={() => {
+                      setName(teacher);
+                      handleOpen();
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             );
