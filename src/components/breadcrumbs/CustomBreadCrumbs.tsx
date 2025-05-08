@@ -1,8 +1,8 @@
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import { Box, Stack } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router';
+import { Box, Stack } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
 type Item = {
   label: string;

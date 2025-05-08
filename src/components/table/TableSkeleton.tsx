@@ -1,4 +1,5 @@
 import { TableRow, Skeleton, TableCell } from '@mui/material';
+
 import { TABLE_SKELETON_ROW_LENGTH } from '../../constant/table';
 
 type Props = {

@@ -1,9 +1,9 @@
 import { Close } from '@mui/icons-material';
 import { Stack, Drawer, IconButton, Typography } from '@mui/material';
 
-import { SIDEBAR_WIDTH } from '../../../config/sidebar-config';
-import useMobileQuery from '../../../hooks/useMobileQuery';
 import Navigation from './Navigation';
+import useMobileQuery from '../../../hooks/useMobileQuery';
+import { SIDEBAR_WIDTH } from '../../../config/sidebar-config';
 
 type SidebarProps = {
   open: boolean;

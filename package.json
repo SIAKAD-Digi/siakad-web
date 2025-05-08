@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

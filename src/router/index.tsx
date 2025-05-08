@@ -1,17 +1,17 @@
 import { Route, Routes } from 'react-router';
 
-import { DashboardLayout } from '../components/layout/main/DashboardLayout';
-import NotFoundPage from '../components/pages/NotFoundPage';
 import { pathConfig } from '../config/path-config';
-import { lazyWithSuspense } from '../utils/lazy-with-suspense';
 import { TEACHER, SUPER_ADMIN } from '../constant/role';
 import AuthMiddleware from '../middleware/AuthMiddleware';
 import RoleMiddleware from '../middleware/RoleMiddleware';
+import NotFoundPage from '../components/pages/NotFoundPage';
 import GuestMiddleware from '../middleware/GuestMiddleware';
 import ForbidenPage from '../components/pages/ForbidenPage';
+import CoursePage from '../modules/master-data/course/pages';
+import { lazyWithSuspense } from '../utils/lazy-with-suspense';
 import TeacherPage from '../modules/master-data/teacher/pages';
 import ClassroomPage from '../modules/master-data/class/pages';
-import CoursePage from '../modules/master-data/course/pages';
+import { DashboardLayout } from '../components/layout/main/DashboardLayout';
 
 const DashboardPage = lazyWithSuspense(() => import('../modules/dashboard/pages'));
 const ComingSoonPage = lazyWithSuspense(() => import('../components/pages/ComingSoonPage'));

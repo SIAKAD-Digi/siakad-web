@@ -1,6 +1,6 @@
-import { Box, colors } from '@mui/material';
 import { useState } from 'react';
 import { Outlet } from 'react-router';
+import { Box, colors } from '@mui/material';
 
 import Main from './Main';
 import Navbar from './Navbar';

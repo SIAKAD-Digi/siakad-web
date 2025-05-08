@@ -1,4 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
+
 import BackToHomeButton from '../button/BackToHomeButton';
 
 export default function ForbidenPage() {

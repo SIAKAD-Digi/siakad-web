@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router';
+
 import { Role } from '../types/role.types';
 import { pathConfig } from '../config/path-config';
 

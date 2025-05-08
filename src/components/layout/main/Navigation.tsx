@@ -1,7 +1,7 @@
 import { Box, List } from '@mui/material';
 
-import { sidebarMenu } from '../../../config/sidebar-config';
 import NavigationItem from './NavigationItem';
+import { sidebarMenu } from '../../../config/sidebar-config';
 
 const Navigation = () => {
   return (

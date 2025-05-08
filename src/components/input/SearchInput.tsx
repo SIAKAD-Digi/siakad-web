@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
-import { SEARCH_PLACEHOLDER } from '../../constant/input';
 import { SearchOutlined } from '@mui/icons-material';
+
+import { SEARCH_PLACEHOLDER } from '../../constant/input';
 
 type Props = {
   placeholder?: string;

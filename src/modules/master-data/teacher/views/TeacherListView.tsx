@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { TeacherEntity } from '../types/teacher.types';
-import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
 import { Button, TableRow, TableCell } from '@mui/material';
-import DashboardContent from '../../../../components/layout/main/DashboardContent';
-import CustomTable from '../../../../components/table/CustomTable';
-import ActionTableButton from '../../../../components/button/ActionTableButton';
+
+import { TeacherEntity } from '../types/teacher.types';
 import TeacherTableFilter from '../components/TeacherTableFilter';
+import CustomTable from '../../../../components/table/CustomTable';
 import ModalDelete from '../../../../components/modal/ModalDelete';
+import ActionTableButton from '../../../../components/button/ActionTableButton';
+import DashboardContent from '../../../../components/layout/main/DashboardContent';
+import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
 
 const data: TeacherEntity[] = [
   {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { withSuspense } from './with-suspense';
 
 export function lazyWithSuspense<T extends object>(

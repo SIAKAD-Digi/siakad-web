@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+
 import { pathConfig } from '../config/path-config';
 
 const axiosInstance = axios.create({

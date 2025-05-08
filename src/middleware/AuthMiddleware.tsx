@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router';
+
 import { pathConfig } from '../config/path-config';
 
 type Props = {

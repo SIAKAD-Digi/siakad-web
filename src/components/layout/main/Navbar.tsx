@@ -1,8 +1,8 @@
 import { Menu } from '@mui/icons-material';
 import { Box, AppBar, Toolbar, IconButton } from '@mui/material';
 
-import { SIDEBAR_WIDTH } from '../../../config/sidebar-config';
 import UserMenu from './UserMenu';
+import { SIDEBAR_WIDTH } from '../../../config/sidebar-config';
 
 type NavbarProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

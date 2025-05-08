@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   BarChart,
   TimerOutlined,
@@ -6,7 +7,6 @@ import {
   BorderColorOutlined,
   CalendarViewDayOutlined,
 } from '@mui/icons-material';
-import React from 'react';
 
 import { pathConfig } from './path-config';
 

@@ -1,12 +1,12 @@
-import { Logout, AccountCircle } from '@mui/icons-material';
-import { Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import * as React from 'react';
 import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
+import { Typography } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import * as React from 'react';
+import { Logout, AccountCircle } from '@mui/icons-material';
 
 export default function UserMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

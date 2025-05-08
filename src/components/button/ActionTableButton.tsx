@@ -1,5 +1,5 @@
-import { EditOutlined, DeleteOutline, VisibilityOutlined } from '@mui/icons-material';
 import { Stack, IconButton } from '@mui/material';
+import { EditOutlined, DeleteOutline, VisibilityOutlined } from '@mui/icons-material';
 
 type Props = {
   onClickDetail?: () => void;
