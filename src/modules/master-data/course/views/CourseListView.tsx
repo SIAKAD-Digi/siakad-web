@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CourseEntity } from '../types/course.types';
 import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
-import { Button, TableCell, TableRow } from '@mui/material';
+import { Button, TableRow, TableCell } from '@mui/material';
 import DashboardContent from '../../../../components/layout/main/DashboardContent';
 import CustomTable from '../../../../components/table/CustomTable';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
