@@ -1,93 +1,52 @@
 import { useState, useEffect } from 'react';
 import { Button, TableRow, TableCell } from '@mui/material';
+import { PickerValue } from '@mui/x-date-pickers/internals';
 
-import { StudentEntity } from '../types/student.types';
+import { useGetStudents } from '../hooks/use-get-students';
+import { formatDate } from '../../../../utils/format-date';
+import { useDebounce } from '../../../../hooks/useDebounce';
 import StudentTableFilter from '../components/StudentTableFilter';
 import CustomTable from '../../../../components/table/CustomTable';
-import ModalDelete from '../../../../components/modal/ModalDelete';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
 import DashboardContent from '../../../../components/layout/main/DashboardContent';
 import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
-const data: StudentEntity[] = [
-  {
-    id: '1',
-    name: 'Dian Bayu Nugroho',
-    nik: '111222333',
-    gender: 'Laki - Laki',
-    class: 'VII IPA 2',
-    dateOfBirth: '20 Mei 2003',
-    status: 'Aktif',
-  },
-  {
-    id: '2',
-    name: 'Dian Bayu Nugroho',
-    nik: '111222333',
-    gender: 'Laki - Laki',
-    class: 'VII IPA 2',
-    dateOfBirth: '20 Mei 2003',
-    status: 'Aktif',
-  },
-  {
-    id: '3',
-    name: 'Dian Bayu Nugroho',
-    nik: '111222333',
-    gender: 'Laki - Laki',
-    class: 'VII IPA 2',
-    dateOfBirth: '20 Mei 2003',
-    status: 'Aktif',
-  },
-  {
-    id: '4',
-    name: 'Dian Bayu Nugroho',
-    nik: '111222333',
-    gender: 'Laki - Laki',
-    class: 'VII IPA 2',
-    dateOfBirth: '20 Mei 2003',
-    status: 'Aktif',
-  },
-  {
-    id: '5',
-    name: 'Dian Bayu Nugroho',
-    nik: '111222333',
-    gender: 'Laki - Laki',
-    class: 'VII IPA 2',
-    dateOfBirth: '20 Mei 2003',
-    status: 'Aktif',
-  },
-  {
-    id: '6',
-    name: 'Dian Bayu Nugroho',
-    nik: '111222333',
-    gender: 'Laki - Laki',
-    class: 'VII IPA 2',
-    dateOfBirth: '20 Mei 2003',
-    status: 'Aktif',
-  },
-];
-export default function StudentListView() {
-  const [isLoading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [student, setStudent] = useState<StudentEntity>();
-  const [listStudent, setListStudents] = useState<StudentEntity[]>(data);
 
-  const deleteStudentById = (id?: string) => {
-    setListStudents((prevStudents) => prevStudents.filter((value) => value.id !== id));
-  };
+export default function StudentListView() {
+  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState('all');
+  const [startDate, setStartDate] = useState<PickerValue | null>(null);
+  const [endDate, setEndDate] = useState<PickerValue | null>(null);
+  const debounceName = useDebounce(name);
+  const { data, loading } = useGetStudents({
+    page: page + 1,
+    limit,
+    name: debounceName,
+    status,
+    start_date: startDate?.format('YYYY-MM-DD'),
+    end_date: endDate?.format('YYYY-MM-DD'),
+  });
+
   const headers = [
     { label: 'Nama' },
     { label: 'NIK' },
-    { label: 'Jenis Kelamin', minWidth: 122 },
     { label: 'Kelas' },
-    { label: 'Tanggal Lahir', minWidth: 122 },
     { label: 'Status' },
+    { label: 'Waktu dibuat', minWidth: 122 },
     { label: 'Aksi' },
   ];
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
-  }, [isLoading]);
+    setPage(0);
+  }, [name, status, startDate, endDate]);
+
+  const resetFilter = () => {
+    setName('');
+    setStatus('all');
+    setStartDate(null);
+    setEndDate(null);
+  };
 
   return (
     <>
@@ -96,45 +55,48 @@ export default function StudentListView() {
         action={<Button>Tambah</Button>}
       />
       <DashboardContent>
-        <ModalDelete
-          id={student?.id}
-          name={student?.name}
-          open={open}
-          onClose={handleClose}
-          onDelete={() => deleteStudentById(student?.id)}
+        <StudentTableFilter
+          name={name}
+          status={status}
+          startDate={startDate}
+          endDate={endDate}
+          onSearch={(e) => setName(e.target.value)}
+          onStartChange={(value) => setStartDate(value)}
+          onEndChange={(value) => setEndDate(value)}
+          onStatusChange={(e) => setStatus(e.target.value)}
+          onClear={resetFilter}
         />
-        <StudentTableFilter />
         <CustomTable
           headers={headers}
-          count={100}
-          page={1}
-          isLoading={isLoading}
-          isEmpty={listStudent.length === 0}
-          data={listStudent}
+          count={data?.meta.total || 0}
+          page={page}
+          rowsPerPage={limit}
+          isLoading={loading}
+          isEmpty={data?.data.length === 0}
+          data={data?.data || []}
           render={(student) => {
             return (
               <TableRow key={student.id}>
                 <TableCell>{student.name}</TableCell>
                 <TableCell>{student.nik}</TableCell>
-                <TableCell>{student.gender}</TableCell>
-                <TableCell>{student.class}</TableCell>
-                <TableCell>{student.dateOfBirth}</TableCell>
-                <TableCell>{student.status}</TableCell>
+                <TableCell>{student.class_name || '-'}</TableCell>
+                <TableCell>{student.is_active ? 'Aktif' : 'Tidak Aktif'}</TableCell>
+                <TableCell>{formatDate(student.created_at, 'DD MMMM YYYY HH:mm')}</TableCell>
                 <TableCell>
                   <ActionTableButton
                     onClickDetail={() => {}}
                     onClickEdit={() => {}}
-                    onClickDelete={() => {
-                      setStudent(student);
-                      handleOpen();
-                    }}
+                    onClickDelete={() => {}}
                   />
                 </TableCell>
               </TableRow>
             );
           }}
-          handleChangePage={() => {}}
-          handleChangeRowsPerPage={() => {}}
+          handleChangePage={(_, value) => {
+            setPage(value);
+            console.log(value);
+          }}
+          handleChangeRowsPerPage={(e) => setLimit(Number(e.target.value))}
         />
       </DashboardContent>
     </>

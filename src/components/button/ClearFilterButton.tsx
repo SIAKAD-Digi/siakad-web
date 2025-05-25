@@ -1,9 +1,18 @@
 import { Button } from '@mui/material';
-import { CloseOutlined } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 
-export default function ClearFilterButton() {
+type Props = {
+  onClear: () => void;
+};
+
+export default function ClearFilterButton({ onClear }: Props) {
   return (
-    <Button color="inherit" size="small" startIcon={<CloseOutlined fontSize="inherit" />}>
+    <Button
+      color="inherit"
+      size="small"
+      startIcon={<Delete fontSize="inherit" />}
+      onClick={onClear}
+    >
       Reset
     </Button>
   );

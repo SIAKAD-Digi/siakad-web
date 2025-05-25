@@ -24,7 +24,7 @@ type Props<T> = {
   isLoading: boolean;
   isEmpty: boolean;
   data: T[];
-  handleChangePage: (_: unknown, newPage: number) => void;
+  handleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
   handleChangeRowsPerPage: (_: React.ChangeEvent<HTMLInputElement>) => void;
   render: (data: T) => React.ReactNode;
 };

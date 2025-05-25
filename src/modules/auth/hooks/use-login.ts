@@ -18,8 +18,8 @@ export function useLogin(payload: LoginPayload) {
   const submit = async () => {
     try {
       setLoading(true);
-      const res: LoginResponse = await axiosInstance.post(pathApiConfig.auth.login(), payload);
-      const token = res.data.access_token;
+      const data: LoginResponse = await axiosInstance.post(pathApiConfig.auth.login(), payload);
+      const token = data.data.access_token;
       const user = jwtDecode(token).sub;
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('access-token', token);

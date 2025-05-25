@@ -4,4 +4,9 @@ export const pathApiConfig = {
   auth: {
     login: () => `${v1}/auth/login`,
   },
+  masterData: {
+    student: {
+      getAll: () => `${v1}/students`,
+    },
+  },
 };
