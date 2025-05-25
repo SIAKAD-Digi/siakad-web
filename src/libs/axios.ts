@@ -20,7 +20,11 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    if (error instanceof AxiosError && (error as AxiosError).status === 401) {
+    const isLoginFailed =
+      (error as AxiosError<{ message: string }>).response?.data?.message ===
+      'nik atau password salah';
+
+    if (error instanceof AxiosError && (error as AxiosError).status === 401 && !isLoginFailed) {
       localStorage.clear();
       location.replace(pathConfig.auth.login);
     }

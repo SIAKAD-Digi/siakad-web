@@ -10,7 +10,7 @@ export const pathConfig = {
     student: '/master-data/students',
     teacher: '/master-data/teachers',
     class: '/master-data/classroom',
-    course: 'master-data/courses',
+    course: '/master-data/courses',
   },
   absence: '/absence',
   valueEntry: '/value-entry',

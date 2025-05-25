@@ -3,24 +3,38 @@ import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { Logout, AccountCircle } from '@mui/icons-material';
 
+import { CurrentUser } from '../../../types/user.types';
+import { pathConfig } from '../../../config/path-config';
+
 export default function UserMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+  const user = localStorage.getItem('user') || '';
+  const currentUser: CurrentUser = user ? JSON.parse(user) : undefined;
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logout = () => {
+    localStorage.clear();
+    navigate(pathConfig.auth.login);
+  };
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography>Jhon Doe</Typography>
+        <Typography>{currentUser?.name || ''}</Typography>
         <IconButton
           onClick={handleClick}
           size="small"
@@ -69,7 +83,7 @@ export default function UserMenu() {
           </ListItemIcon>
           <Typography variant="body2">Profile</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ color: (theme) => theme.palette.error.main }}>
+        <MenuItem onClick={logout} sx={{ color: (theme) => theme.palette.error.main }}>
           <ListItemIcon>
             <Logout sx={{ color: (theme) => theme.palette.error.main }} />
           </ListItemIcon>

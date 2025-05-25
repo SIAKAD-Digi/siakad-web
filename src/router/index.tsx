@@ -7,16 +7,16 @@ import RoleMiddleware from '../middleware/RoleMiddleware';
 import NotFoundPage from '../components/pages/NotFoundPage';
 import GuestMiddleware from '../middleware/GuestMiddleware';
 import ForbidenPage from '../components/pages/ForbidenPage';
-import CoursePage from '../modules/master-data/course/pages';
 import { lazyWithSuspense } from '../utils/lazy-with-suspense';
-import TeacherPage from '../modules/master-data/teacher/pages';
-import ClassroomPage from '../modules/master-data/class/pages';
 import { DashboardLayout } from '../components/layout/main/DashboardLayout';
 
 const DashboardPage = lazyWithSuspense(() => import('../modules/dashboard/pages'));
 const ComingSoonPage = lazyWithSuspense(() => import('../components/pages/ComingSoonPage'));
 const LoginPage = lazyWithSuspense(() => import('../modules/auth/pages/LoginPage'));
 const StudentPage = lazyWithSuspense(() => import('../modules/master-data/student/pages'));
+const TeacherPage = lazyWithSuspense(() => import('../modules/master-data/teacher/pages'));
+const ClassroomPage = lazyWithSuspense(() => import('../modules/master-data/class/pages'));
+const CoursePage = lazyWithSuspense(() => import('../modules/master-data/course/pages'));
 
 const Router = () => (
   <Routes>

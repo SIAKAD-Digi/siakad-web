@@ -1,0 +1,7 @@
+const v1 = '/api/v1';
+
+export const pathApiConfig = {
+  auth: {
+    login: () => `${v1}/auth/login`,
+  },
+};
