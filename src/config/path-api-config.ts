@@ -7,6 +7,7 @@ export const pathApiConfig = {
   masterData: {
     student: {
       getAll: () => `${v1}/students`,
+      getDetail: (id: string) => `${v1}/students/${id}`,
     },
   },
 };

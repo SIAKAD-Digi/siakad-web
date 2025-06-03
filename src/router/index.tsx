@@ -14,6 +14,9 @@ const DashboardPage = lazyWithSuspense(() => import('../modules/dashboard/pages'
 const ComingSoonPage = lazyWithSuspense(() => import('../components/pages/ComingSoonPage'));
 const LoginPage = lazyWithSuspense(() => import('../modules/auth/pages/LoginPage'));
 const StudentPage = lazyWithSuspense(() => import('../modules/master-data/student/pages'));
+const StudentDetailPage = lazyWithSuspense(
+  () => import('../modules/master-data/student/pages/detail'),
+);
 const TeacherPage = lazyWithSuspense(() => import('../modules/master-data/teacher/pages'));
 const ClassroomPage = lazyWithSuspense(() => import('../modules/master-data/class/pages'));
 const CoursePage = lazyWithSuspense(() => import('../modules/master-data/course/pages'));
@@ -23,6 +26,7 @@ const Router = () => (
     <Route element={<AuthMiddleware element={<DashboardLayout />} />}>
       <Route path={pathConfig.dashboard} element={<DashboardPage />} />
       <Route path={pathConfig.masterData.student} element={<StudentPage />} />
+      <Route path={pathConfig.masterData.studentDetail} element={<StudentDetailPage />} />
       <Route path={pathConfig.masterData.teacher} element={<TeacherPage />} />
       <Route path={pathConfig.masterData.class} element={<ClassroomPage />} />
       <Route path={pathConfig.masterData.course} element={<CoursePage />} />
@@ -35,7 +39,7 @@ const Router = () => (
       <Route path={pathConfig.schedule} element={<ComingSoonPage />} />
     </Route>
     <Route path={pathConfig.auth.login} element={<GuestMiddleware element={<LoginPage />} />} />
-    <Route path={pathConfig.auth.forbiden} element={<ForbidenPage />} />
+    <Route path={pathConfig.error.forbiden} element={<ForbidenPage />} />
     <Route path="/*" element={<NotFoundPage />} />
   </Routes>
 );

@@ -11,7 +11,7 @@ type Item = {
 
 type Props = {
   items?: Item[];
-  action: React.ReactNode;
+  action?: React.ReactNode;
 };
 
 export default function CustomBreadcrumbs({ items, action }: Props) {

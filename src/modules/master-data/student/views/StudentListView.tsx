@@ -1,10 +1,12 @@
+import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { Button, TableRow, TableCell } from '@mui/material';
 import { PickerValue } from '@mui/x-date-pickers/internals';
 
 import { useGetStudents } from '../hooks/use-get-students';
 import { formatDate } from '../../../../utils/format-date';
-import { useDebounce } from '../../../../hooks/useDebounce';
+import { pathConfig } from '../../../../config/path-config';
+import { useDebounce } from '../../../../hooks/use-debounce';
 import StudentTableFilter from '../components/StudentTableFilter';
 import CustomTable from '../../../../components/table/CustomTable';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
@@ -27,6 +29,7 @@ export default function StudentListView() {
     start_date: startDate?.format('YYYY-MM-DD'),
     end_date: endDate?.format('YYYY-MM-DD'),
   });
+  const navigate = useNavigate();
 
   const headers = [
     { label: 'Nama' },
@@ -68,11 +71,11 @@ export default function StudentListView() {
         />
         <CustomTable
           headers={headers}
-          count={data?.meta.total || 0}
+          count={data?.meta?.total || 0}
           page={page}
           rowsPerPage={limit}
           isLoading={loading}
-          isEmpty={data?.data.length === 0}
+          isEmpty={data?.data?.length === 0}
           data={data?.data || []}
           render={(student) => {
             return (
@@ -84,7 +87,7 @@ export default function StudentListView() {
                 <TableCell>{formatDate(student.created_at, 'DD MMMM YYYY HH:mm')}</TableCell>
                 <TableCell>
                   <ActionTableButton
-                    onClickDetail={() => {}}
+                    onClickDetail={() => navigate(`${pathConfig.masterData.student}/${student.id}`)}
                     onClickEdit={() => {}}
                     onClickDelete={() => {}}
                   />

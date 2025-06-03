@@ -1,3 +1,4 @@
+import { CommonResponse } from '../../../../types/common-response.types';
 import { Pagination, PaginationQueryParams } from '../../../../types/pagination.types';
 
 export type StudentEntity = {
@@ -9,6 +10,23 @@ export type StudentEntity = {
   created_at: string;
 };
 
+export type StudentDetailEntity = {
+  id: string;
+  name: string;
+  nik: string;
+  phone_number: string;
+  email: string;
+  class_name: string | null;
+  profile_picture: string | null;
+  birth_of_date: string;
+  address: string;
+  gender: string;
+  is_active: boolean;
+  student_guardian: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export type StudentQueryParams = {
   name: string;
   start_date?: string;
@@ -16,7 +34,6 @@ export type StudentQueryParams = {
   status: string;
 } & PaginationQueryParams;
 
-export type GetStudentsResponse = {
-  data: StudentEntity[];
-  meta: Pagination;
-};
+export type GetStudentsResponse = CommonResponse<StudentEntity[], Pagination>;
+
+export type GetStudentDetailResponse = CommonResponse<StudentDetailEntity>;

@@ -2,7 +2,7 @@ import { Close } from '@mui/icons-material';
 import { Stack, Drawer, IconButton, Typography } from '@mui/material';
 
 import Navigation from './Navigation';
-import useMobileQuery from '../../../hooks/useMobileQuery';
+import useMobileQuery from '../../../hooks/use-mobile-query';
 import { SIDEBAR_WIDTH } from '../../../config/sidebar-config';
 
 type SidebarProps = {

@@ -4,17 +4,12 @@ import axiosInstance from '../../../../libs/axios';
 import { pathApiConfig } from '../../../../config/path-api-config';
 import { StudentQueryParams, GetStudentsResponse } from '../types/student.types';
 
-export function useGetStudents({
-  page,
-  limit,
-  name,
-  status,
-  start_date,
-  end_date,
-}: StudentQueryParams) {
+export function useGetStudents(params: StudentQueryParams) {
   const [data, setData] = useState<GetStudentsResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
+
+  const paramStr = JSON.stringify(params);
 
   useEffect(() => {
     (async () => {
@@ -23,14 +18,7 @@ export function useGetStudents({
         const studentsData: GetStudentsResponse = await axiosInstance.get(
           pathApiConfig.masterData.student.getAll(),
           {
-            params: {
-              page,
-              limit,
-              name,
-              status,
-              start_date,
-              end_date,
-            },
+            params: JSON.parse(paramStr),
           },
         );
         setData(studentsData);
@@ -40,7 +28,7 @@ export function useGetStudents({
         setLoading(false);
       }
     })();
-  }, [page, limit, name, status, start_date, end_date]);
+  }, [paramStr]);
 
   return {
     data,

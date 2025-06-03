@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, useTheme } from '@mui/material';
 
-import useMobileQuery from '../../../hooks/useMobileQuery';
+import useMobileQuery from '../../../hooks/use-mobile-query';
 
 type ContentProps = {
   children: React.ReactNode;

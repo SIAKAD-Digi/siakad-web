@@ -30,7 +30,11 @@ axiosInstance.interceptors.response.use(
     }
 
     if (error instanceof AxiosError && (error as AxiosError).status === 403) {
-      location.replace(pathConfig.auth.forbiden);
+      location.replace(pathConfig.error.forbiden);
+    }
+
+    if (error instanceof AxiosError && (error as AxiosError).status === 404) {
+      location.replace(pathConfig.error.notFound);
     }
 
     return Promise.reject(error);
