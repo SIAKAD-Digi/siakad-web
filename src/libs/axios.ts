@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import axios, { AxiosError } from 'axios';
 
 import { pathConfig } from '../config/path-config';
@@ -35,6 +36,10 @@ axiosInstance.interceptors.response.use(
 
     if (error instanceof AxiosError && (error as AxiosError).status === 404) {
       location.replace(pathConfig.error.notFound);
+    }
+
+    if (!(error instanceof AxiosError) || (error.status as number) >= 500) {
+      toast.error('Terjadi kesalahan');
     }
 
     return Promise.reject(error);

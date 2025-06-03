@@ -37,3 +37,16 @@ export type StudentQueryParams = {
 export type GetStudentsResponse = CommonResponse<StudentEntity[], Pagination>;
 
 export type GetStudentDetailResponse = CommonResponse<StudentDetailEntity>;
+
+export type CreateStudentSchema = {
+  name: string;
+  nik: string;
+  email: string;
+  phone_number: string;
+  student_guardian: string;
+  birth_of_date: string;
+  gender: string;
+  address: string;
+};
+
+export type UpdateStudentSchema = CreateStudentSchema & { is_active: boolean };

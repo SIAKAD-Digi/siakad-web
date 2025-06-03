@@ -8,6 +8,7 @@ export const pathApiConfig = {
     student: {
       getAll: () => `${v1}/students`,
       getDetail: (id: string) => `${v1}/students/${id}`,
+      create: () => `${v1}/students`,
     },
   },
 };

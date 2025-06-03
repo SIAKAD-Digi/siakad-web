@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { Button, TableRow, TableCell } from '@mui/material';
 import { PickerValue } from '@mui/x-date-pickers/internals';
 
@@ -55,7 +55,11 @@ export default function StudentListView() {
     <>
       <CustomBreadcrumbs
         items={[{ label: 'Master Data' }, { label: 'Murid' }]}
-        action={<Button>Tambah</Button>}
+        action={
+          <Link to={pathConfig.masterData.studentCreate}>
+            <Button>Tambah</Button>
+          </Link>
+        }
       />
       <DashboardContent>
         <StudentTableFilter
