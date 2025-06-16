@@ -92,7 +92,9 @@ export default function StudentListView() {
                 <TableCell>
                   <ActionTableButton
                     onClickDetail={() => navigate(`${pathConfig.masterData.student}/${student.id}`)}
-                    onClickEdit={() => {}}
+                    onClickEdit={() =>
+                      navigate(`${pathConfig.masterData.student}/${student.id}/edit`)
+                    }
                     onClickDelete={() => {}}
                   />
                 </TableCell>

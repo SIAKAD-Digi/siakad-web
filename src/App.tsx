@@ -11,7 +11,7 @@ import 'dayjs/locale/id';
 export default function App() {
   return (
     <ThemeProvider theme={theme} defaultMode="light">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" theme="light" richColors />
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="id">
         <Router />
       </LocalizationProvider>

@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router';
 
 import axiosInstance from '../../../../libs/axios';
 import { pathConfig } from '../../../../config/path-config';
-import { CreateStudentSchema } from '../types/student.types';
+import { UpdateStudentSchema } from '../types/student.types';
 import { pathApiConfig } from '../../../../config/path-api-config';
 
-export function useCreateStudent(payload: CreateStudentSchema) {
+export function useUpdateStudent(payload: UpdateStudentSchema, id: string) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
 
@@ -17,9 +17,9 @@ export function useCreateStudent(payload: CreateStudentSchema) {
   const submit = async () => {
     try {
       setLoading(true);
-      await axiosInstance.post(pathApiConfig.masterData.student.create(), payload);
+      await axiosInstance.put(pathApiConfig.masterData.student.update(id), payload);
       navigate(pathConfig.masterData.student);
-      toast.success('Sukses membuat siswa');
+      toast.success('Sukses mengubah siswa');
     } catch (error) {
       if (isAxiosError(error) && error.response?.data.message) {
         toast.error(error.response?.data.message);

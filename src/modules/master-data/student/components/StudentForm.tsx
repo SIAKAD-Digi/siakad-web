@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 import { PickerValue } from '@mui/x-date-pickers/internals';
 import { Stack, Button, TextField, SelectChangeEvent } from '@mui/material';
 import { DatePicker, DateValidationError, PickerChangeHandlerContext } from '@mui/x-date-pickers';
 
+import { pathConfig } from '../../../../config/path-config';
 import CustomSelect from '../../../../components/input/CustomSelect';
 import { ErrorResponse } from '../../../../types/common-response.types';
 
@@ -20,6 +22,7 @@ type Props = {
   birthOfDate: PickerValue;
   gender: string;
   address: string;
+  status?: string;
   onChangeName?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onChangeNik?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onChangeEmail?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -47,6 +50,7 @@ export default function StudentForm({
   birthOfDate,
   gender,
   address,
+  status,
   onChangeName,
   onChangeNik,
   onChangeEmail,
@@ -137,7 +141,12 @@ export default function StudentForm({
             onChange={onChangeGender}
           />
           {isEdit && (
-            <CustomSelect label="Status" options={statusOptions} onChange={onChangeStatus} />
+            <CustomSelect
+              label="Status"
+              value={status}
+              options={statusOptions}
+              onChange={onChangeStatus}
+            />
           )}
           <TextField
             multiline
@@ -150,7 +159,10 @@ export default function StudentForm({
           />
         </Stack>
       </Stack>
-      <Stack direction="row" justifyContent="end" mt={3}>
+      <Stack direction="row" justifyContent="end" mt={3} gap={3}>
+        <Link to={pathConfig.masterData.student}>
+          <Button variant="outlined">Batal</Button>
+        </Link>
         <Button loading={loading} onClick={onSubmit}>
           Simpan
         </Button>

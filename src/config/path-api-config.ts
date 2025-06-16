@@ -9,6 +9,7 @@ export const pathApiConfig = {
       getAll: () => `${v1}/students`,
       getDetail: (id: string) => `${v1}/students/${id}`,
       create: () => `${v1}/students`,
+      update: (id: string) => `${v1}/students/${id}`,
     },
   },
 };

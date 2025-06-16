@@ -20,6 +20,7 @@ const StudentDetailPage = lazyWithSuspense(
 const StudentCreatePage = lazyWithSuspense(
   () => import('../modules/master-data/student/pages/create'),
 );
+const StudentEditPage = lazyWithSuspense(() => import('../modules/master-data/student/pages/edit'));
 const TeacherPage = lazyWithSuspense(() => import('../modules/master-data/teacher/pages'));
 const ClassroomPage = lazyWithSuspense(() => import('../modules/master-data/class/pages'));
 const CoursePage = lazyWithSuspense(() => import('../modules/master-data/course/pages'));
@@ -31,6 +32,7 @@ const Router = () => (
       <Route path={pathConfig.masterData.student} element={<StudentPage />} />
       <Route path={pathConfig.masterData.studentDetail} element={<StudentDetailPage />} />
       <Route path={pathConfig.masterData.studentCreate} element={<StudentCreatePage />} />
+      <Route path={pathConfig.masterData.studentEdit} element={<StudentEditPage />} />
       <Route path={pathConfig.masterData.teacher} element={<TeacherPage />} />
       <Route path={pathConfig.masterData.class} element={<ClassroomPage />} />
       <Route path={pathConfig.masterData.course} element={<CoursePage />} />
