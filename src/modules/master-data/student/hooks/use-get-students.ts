@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import axiosInstance from '../../../../libs/axios';
 import { pathApiConfig } from '../../../../config/path-api-config';
@@ -10,29 +10,31 @@ export function useGetStudents(params: StudentQueryParams) {
   const [error, setError] = useState<unknown | null>(null);
 
   const paramStr = JSON.stringify(params);
+  const fetch = useCallback(async () => {
+    try {
+      setLoading(true);
+      const studentsData: GetStudentsResponse = await axiosInstance.get(
+        pathApiConfig.masterData.student.getAll(),
+        {
+          params: JSON.parse(paramStr),
+        },
+      );
+      setData(studentsData);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [paramStr]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const studentsData: GetStudentsResponse = await axiosInstance.get(
-          pathApiConfig.masterData.student.getAll(),
-          {
-            params: JSON.parse(paramStr),
-          },
-        );
-        setData(studentsData);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [paramStr]);
+    fetch();
+  }, [paramStr, fetch]);
 
   return {
     data,
     loading,
     error,
+    fetch,
   };
 }

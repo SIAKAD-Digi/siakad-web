@@ -10,6 +10,7 @@ export const pathApiConfig = {
       getDetail: (id: string) => `${v1}/students/${id}`,
       create: () => `${v1}/students`,
       update: (id: string) => `${v1}/students/${id}`,
+      delete: (id: string) => `${v1}/students/${id}`,
     },
   },
 };
