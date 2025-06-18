@@ -1,9 +1,11 @@
+import { Link } from 'react-router';
 import { useState, useEffect } from 'react';
 import { Button, TableRow, TableCell } from '@mui/material';
 import { PickerValue } from '@mui/x-date-pickers/internals';
 
 import { useGetTeachers } from '../hooks/use-get-teachers';
 import { formatDate } from '../../../../utils/format-date';
+import { pathConfig } from '../../../../config/path-config';
 import { useDebounce } from '../../../../hooks/use-debounce';
 import CustomTable from '../../../../components/table/CustomTable';
 import StudentTableFilter from '../../student/components/StudentTableFilter';
@@ -53,7 +55,11 @@ export default function TeacherListView() {
     <>
       <CustomBreadcrumbs
         items={[{ label: 'Master Data' }, { label: 'Guru' }]}
-        action={<Button>Tambah</Button>}
+        action={
+          <Link to={pathConfig.masterData.teacherCreate}>
+            <Button>Tambah</Button>
+          </Link>
+        }
       />
       <DashboardContent>
         <StudentTableFilter

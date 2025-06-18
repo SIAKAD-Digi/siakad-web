@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router';
 
 import axiosInstance from '../../../../libs/axios';
 import { pathConfig } from '../../../../config/path-config';
-import { UpdateStudentSchema } from '../types/student.types';
+import { CreateTeacherSchema } from '../types/teacher.types';
 import { pathApiConfig } from '../../../../config/path-api-config';
 
-export function useUpdateStudent(payload: UpdateStudentSchema, id: string) {
+export function useCreateTeacher(payload: CreateTeacherSchema) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
 
@@ -17,9 +17,9 @@ export function useUpdateStudent(payload: UpdateStudentSchema, id: string) {
   const submit = async () => {
     try {
       setLoading(true);
-      await axiosInstance.put(pathApiConfig.masterData.student.update(id), payload);
-      navigate(pathConfig.masterData.student);
-      toast.success('Sukses mengubah siswa');
+      await axiosInstance.post(pathApiConfig.masterData.teacher.create(), payload);
+      navigate(pathConfig.masterData.teacher);
+      toast.success('Sukses membuat guru');
     } catch (error) {
       if (isAxiosError(error) && error.response?.data.message && !error.response.data.errors) {
         toast.error(error.response?.data.message);

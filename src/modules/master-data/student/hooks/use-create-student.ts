@@ -21,10 +21,17 @@ export function useCreateStudent(payload: CreateStudentSchema) {
       navigate(pathConfig.masterData.student);
       toast.success('Sukses membuat siswa');
     } catch (error) {
-      if (isAxiosError(error) && error.response?.data.message) {
+      if (isAxiosError(error) && error.response?.data.message && !error.response.data.errors) {
         toast.error(error.response?.data.message);
+        return;
       }
-      setError(error);
+
+      if (isAxiosError(error) && error.response?.data.errors) {
+        setError(error);
+        return;
+      }
+
+      toast.error('Terjadi kesalahan');
     } finally {
       setLoading(false);
     }

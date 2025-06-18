@@ -14,6 +14,8 @@ export const pathConfig = {
     studentCreate: '/master-data/students/create',
     studentEdit: '/master-data/students/:id/edit',
     teacher: '/master-data/teachers',
+    teacherCreate: '/master-data/teachers/create',
+    teacherEdit: '/master-data/teachers/:id/create',
     class: '/master-data/classroom',
     course: '/master-data/courses',
   },
