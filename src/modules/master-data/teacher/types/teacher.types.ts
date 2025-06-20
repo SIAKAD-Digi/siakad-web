@@ -16,7 +16,6 @@ export type TeacherDetailEntity = {
   nik: string;
   phone_number: string;
   email: string;
-  class_name: string | null;
   profile_picture: string | null;
   birth_of_date: string;
   address: string;
