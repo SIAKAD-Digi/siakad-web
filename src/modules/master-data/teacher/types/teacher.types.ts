@@ -2,12 +2,12 @@ import { CommonResponse } from '../../../../types/common-response.types';
 import { Pagination, PaginationQueryParams } from '../../../../types/pagination.types';
 
 export type TeacherEntity = {
-  id: '9c752329-892f-436c-9dfd-6e5fc9f57c86';
-  name: 'Adinda Putri';
-  nik: '222444667';
-  email: 'adindaputri4112@gmail.com';
-  is_active: true;
-  created_at: '2025-05-29T18:16:27.115894Z';
+  id: string;
+  name: string;
+  nik: string;
+  email: string;
+  is_active: boolean;
+  created_at: string;
 };
 
 export type TeacherDetailEntity = {
@@ -36,7 +36,7 @@ export type TeacherQueryParams = {
 
 export type GetTeachersResponse = CommonResponse<TeacherEntity[], Pagination>;
 
-export type GetStudentDetailResponse = CommonResponse<TeacherEntity>;
+export type GetTeacherDetailResponse = CommonResponse<TeacherDetailEntity>;
 
 export type CreateTeacherSchema = {
   name: string;
@@ -49,4 +49,4 @@ export type CreateTeacherSchema = {
   address: string;
 };
 
-export type UpdateStudentSchema = CreateTeacherSchema & { is_active: boolean };
+export type UpdateTeacherSchema = CreateTeacherSchema & { is_active: boolean };

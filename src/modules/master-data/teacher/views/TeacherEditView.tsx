@@ -3,45 +3,45 @@ import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { PickerValue } from '@mui/x-date-pickers/internals';
 
-import StudentForm from '../components/StudentForm';
-import { useUpdateStudent } from '../hooks/use-update-student';
-import { useGetStudentDetail } from '../hooks/use-get-student-detail';
+import TeacherForm from '../components/TeacherForm';
+import { useUpdateTeacher } from '../hooks/use-update-teacher';
+import { useGetTeacherDetail } from '../hooks/use-get-teacher-detail';
 import DashboardContent from '../../../../components/layout/main/DashboardContent';
 import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
 
-export default function StudentEditView() {
+export default function TeacherEditView() {
   const { id = '' } = useParams();
-  const { data } = useGetStudentDetail(id);
-  const student = data?.data;
+  const { data } = useGetTeacherDetail(id);
+  const teacher = data?.data;
   const [name, setName] = useState('');
   const [nik, setNik] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [studentGuardian, setStudentGuardian] = useState('');
+  const [married, setMarried] = useState('married');
   const [birthOfDate, setBirthOfDate] = useState<PickerValue>(null);
   const [gender, setGender] = useState('laki-laki');
   const [address, setAddress] = useState('');
   const [status, setStatus] = useState('not active');
 
   useEffect(() => {
-    setName(student?.name || '');
-    setNik(student?.nik || '');
-    setEmail(student?.email || '');
-    setPhoneNumber(student?.phone_number || '');
-    setStudentGuardian(student?.student_guardian || '');
-    setBirthOfDate(dayjs(student?.birth_of_date) || null);
-    setGender(student?.gender || 'laki-laki');
-    setAddress(student?.address || '');
-    setStatus(student?.is_active ? 'active' : 'not active');
-  }, [student]);
+    setName(teacher?.name || '');
+    setNik(teacher?.nik || '');
+    setEmail(teacher?.email || '');
+    setPhoneNumber(teacher?.phone_number || '');
+    setMarried(teacher?.is_married ? 'married' : 'not married');
+    setBirthOfDate(dayjs(teacher?.birth_of_date) || null);
+    setGender(teacher?.gender || 'laki-laki');
+    setAddress(teacher?.address || '');
+    setStatus(teacher?.is_active ? 'active' : 'not active');
+  }, [teacher]);
 
-  const { submit, loading, error } = useUpdateStudent(
+  const { submit, loading, error } = useUpdateTeacher(
     {
       name,
       nik,
       email,
       phone_number: phoneNumber,
-      student_guardian: studentGuardian,
+      is_married: married === 'married',
       birth_of_date: birthOfDate?.format('YYYY-MM-DD').toString() || '',
       gender,
       address,
@@ -51,16 +51,16 @@ export default function StudentEditView() {
   );
   return (
     <>
-      <CustomBreadcrumbs items={[{ label: 'Master Data' }, { label: 'Edit Murid' }]} />
+      <CustomBreadcrumbs items={[{ label: 'Master Data' }, { label: 'Edit Guru' }]} />
       <DashboardContent>
-        <StudentForm
+        <TeacherForm
           isEdit
           error={error}
           name={name}
           nik={nik}
           email={email}
           phoneNumber={phoneNumber}
-          studentGuardian={studentGuardian}
+          married={married}
           birthOfDate={birthOfDate}
           gender={gender}
           address={address}
@@ -71,7 +71,7 @@ export default function StudentEditView() {
           onChangeEmail={(e) => setEmail(e.target.value)}
           onChangeBirthOfDate={(v) => setBirthOfDate(v)}
           onChangeGender={(e) => setGender(e.target.value)}
-          onChangeStudentGuardian={(e) => setStudentGuardian(e.target.value)}
+          onChangeMarried={(e) => setMarried(e.target.value)}
           onChangeStatus={(e) => setStatus(e.target.value)}
           onChangeAddress={(e) => setAddress(e.target.value)}
           onSubmit={submit}

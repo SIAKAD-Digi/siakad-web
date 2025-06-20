@@ -1,5 +1,5 @@
-import { Link } from 'react-router';
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { Button, TableRow, TableCell } from '@mui/material';
 import { PickerValue } from '@mui/x-date-pickers/internals';
 
@@ -30,6 +30,8 @@ export default function TeacherListView() {
     start_date: startDate?.format('YYYY-MM-DD'),
     end_date: endDate?.format('YYYY-MM-DD'),
   });
+
+  const navigate = useNavigate();
 
   const headers = [
     { label: 'Nama' },
@@ -91,8 +93,10 @@ export default function TeacherListView() {
                 <TableCell>{formatDate(teacher.created_at, 'DD MMMM YYYY HH:mm')}</TableCell>
                 <TableCell>
                   <ActionTableButton
-                    onClickDetail={() => {}}
-                    onClickEdit={() => {}}
+                    onClickDetail={() => navigate(`${pathConfig.masterData.teacher}/${teacher.id}`)}
+                    onClickEdit={() =>
+                      navigate(`${pathConfig.masterData.teacher}/${teacher.id}/edit`)
+                    }
                     onClickDelete={() => {}}
                   />
                 </TableCell>
