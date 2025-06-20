@@ -7,8 +7,10 @@ import { useGetTeachers } from '../hooks/use-get-teachers';
 import { formatDate } from '../../../../utils/format-date';
 import { pathConfig } from '../../../../config/path-config';
 import { useDebounce } from '../../../../hooks/use-debounce';
+import { useDeleteTeacher } from '../hooks/use-delete-teacher';
 import CustomTable from '../../../../components/table/CustomTable';
 import StudentTableFilter from '../../student/components/StudentTableFilter';
+import ConfirmationModal from '../../../../components/modal/ConfirmationModal';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
 import DashboardContent from '../../../../components/layout/main/DashboardContent';
 import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
@@ -20,15 +22,25 @@ export default function TeacherListView() {
   const [status, setStatus] = useState('all');
   const [startDate, setStartDate] = useState<PickerValue | null>(null);
   const [endDate, setEndDate] = useState<PickerValue | null>(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [teacherId, setTeacherId] = useState('');
   const debounceName = useDebounce(name);
 
-  const { data, loading } = useGetTeachers({
+  const { data, loading, fetch } = useGetTeachers({
     page: page + 1,
     limit,
     name: debounceName,
     status,
     start_date: startDate?.format('YYYY-MM-DD'),
     end_date: endDate?.format('YYYY-MM-DD'),
+  });
+
+  const { submit, loading: deleteLoading } = useDeleteTeacher({
+    teacherId,
+    onSuccess: () => {
+      setOpenModal(false);
+      fetch();
+    },
   });
 
   const navigate = useNavigate();
@@ -51,6 +63,11 @@ export default function TeacherListView() {
     setStatus('all');
     setStartDate(null);
     setEndDate(null);
+  };
+
+  const handleOpenModal = (id: string) => {
+    setOpenModal(true);
+    setTeacherId(id);
   };
 
   return (
@@ -97,7 +114,7 @@ export default function TeacherListView() {
                     onClickEdit={() =>
                       navigate(`${pathConfig.masterData.teacher}/${teacher.id}/edit`)
                     }
-                    onClickDelete={() => {}}
+                    onClickDelete={() => handleOpenModal(teacher.id)}
                   />
                 </TableCell>
               </TableRow>
@@ -105,6 +122,13 @@ export default function TeacherListView() {
           }}
           handleChangePage={(_, value) => setPage(value)}
           handleChangeRowsPerPage={(e) => setLimit(Number(e.target.value))}
+        />
+        <ConfirmationModal
+          open={openModal}
+          title="Apakah anda yakin menghapus guru?"
+          onAction={submit}
+          onClose={() => setOpenModal(false)}
+          loading={deleteLoading}
         />
       </DashboardContent>
     </>
