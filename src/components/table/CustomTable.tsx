@@ -48,7 +48,13 @@ export default function CustomTable<T>({
           <TableHead>
             <TableRow>
               {headers.map((header) => (
-                <TableCell key={header.label} sx={{ minWidth: header.minWidth }}>
+                <TableCell
+                  key={header.label}
+                  sx={{
+                    minWidth: header.minWidth,
+                    fontWeight: (theme) => theme.typography.fontWeightBold,
+                  }}
+                >
                   {header.label}
                 </TableCell>
               ))}
