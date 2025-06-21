@@ -19,5 +19,12 @@ export const pathApiConfig = {
       update: (id: string) => `${v1}/teachers/${id}`,
       delete: (id: string) => `${v1}/teachers/${id}`,
     },
+    class: {
+      getAll: () => `${v1}/classes`,
+      getDetail: (id: string) => `${v1}/classes/${id}`,
+      create: () => `${v1}/classes`,
+      update: (id: string) => `${v1}/classes/${id}`,
+      delete: (id: string) => `${v1}/classes/${id}`,
+    },
   },
 };

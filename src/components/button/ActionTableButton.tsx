@@ -9,15 +9,21 @@ type Props = {
 export default function ActionTableButton({ onClickDetail, onClickEdit, onClickDelete }: Props) {
   return (
     <Stack direction="row" gap={2}>
-      <IconButton size="small" color="warning" onClick={onClickDetail}>
-        <VisibilityOutlined />
-      </IconButton>
-      <IconButton size="small" color="success" onClick={onClickEdit}>
-        <EditOutlined />
-      </IconButton>
-      <IconButton size="small" color="error" onClick={onClickDelete}>
-        <DeleteOutline />
-      </IconButton>
+      {onClickDetail !== undefined && (
+        <IconButton size="small" color="warning" onClick={onClickDetail}>
+          <VisibilityOutlined />
+        </IconButton>
+      )}
+      {onClickEdit !== undefined && (
+        <IconButton size="small" color="success" onClick={onClickEdit}>
+          <EditOutlined />
+        </IconButton>
+      )}
+      {onClickDelete !== undefined && (
+        <IconButton size="small" color="error" onClick={onClickDelete}>
+          <DeleteOutline />
+        </IconButton>
+      )}
     </Stack>
   );
 }
