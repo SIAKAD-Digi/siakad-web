@@ -4,7 +4,6 @@ import { Button, TableRow, TableCell } from '@mui/material';
 import { CourseEntity } from '../types/course.types';
 import CourseTableFilter from '../components/CourseTableFilter';
 import CustomTable from '../../../../components/table/CustomTable';
-import ModalDelete from '../../../../components/modal/ModalDelete';
 import ActionTableButton from '../../../../components/button/ActionTableButton';
 import DashboardContent from '../../../../components/layout/main/DashboardContent';
 import CustomBreadcrumbs from '../../../../components/breadcrumbs/CustomBreadCrumbs';
@@ -28,15 +27,7 @@ const data: CourseEntity[] = [
 
 export default function CourseListView() {
   const [isLoading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [course, setCourse] = useState<CourseEntity>();
-  const [listCourse, setListCourse] = useState<CourseEntity[]>(data);
 
-  const deleteCourseById = (id?: string) => {
-    setListCourse((prevData) => prevData.filter((value) => value.id !== id));
-  };
   const headers = [{ label: 'Nama Pelajaran' }, { label: 'Tanggal dibuat' }, { label: 'Aksi' }];
 
   useEffect(() => {
@@ -49,21 +40,14 @@ export default function CourseListView() {
         action={<Button>Tambah</Button>}
       />
       <DashboardContent>
-        <ModalDelete
-          id={course?.id}
-          name={course?.name}
-          open={open}
-          onClose={handleClose}
-          onDelete={() => deleteCourseById(course?.id)}
-        />
         <CourseTableFilter />
         <CustomTable
           headers={headers}
           count={100}
           page={1}
           isLoading={isLoading}
-          isEmpty={listCourse.length === 0}
-          data={listCourse}
+          isEmpty
+          data={data}
           render={(course) => {
             return (
               <TableRow key={course.id}>
@@ -73,10 +57,7 @@ export default function CourseListView() {
                   <ActionTableButton
                     onClickDetail={() => {}}
                     onClickEdit={() => {}}
-                    onClickDelete={() => {
-                      setCourse(course);
-                      handleOpen();
-                    }}
+                    onClickDelete={() => {}}
                   />
                 </TableCell>
               </TableRow>
